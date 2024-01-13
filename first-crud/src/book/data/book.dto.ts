@@ -8,17 +8,16 @@
 
 import { IsInt, IsString } from "class-validator";
 
-export class Book{
-    //id : string ;
+export class Book {
     @IsInt()
-    id : number;
-    
-    @IsString()
-    tittle : string;
-    
-    @IsString()
-    author : string;
+    id: number;
 
     @IsString()
-    published : string;
+    title: string; // Corrected property name
+
+    @IsString()
+    author: string;
+
+    @IsString()
+    published: string;
 }
