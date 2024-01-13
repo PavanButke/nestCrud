@@ -1,4 +1,4 @@
-import { Controller, Module } from "@nestjs/common";
+import { Controller, MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { BookService } from "./book.service";
 import { BookController } from "./book.controller";
 
@@ -9,6 +9,9 @@ import { BookController } from "./book.controller";
         providers: [BookService] 
     }
 )
-export class BookModule{
+export class BookModule implements NestModule{
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply()
+    }
 
 }
