@@ -8,7 +8,7 @@ export class BookService{
     public books: Book[]=[];
 
     addBookService(book : Book):string{
-        book.id = uuidv4();
+        //book.id = uuidv4();
         this.books.push(book);
         return "Book added successfuly."
     }
@@ -21,7 +21,7 @@ export class BookService{
       return "Book has been updated successfuly."
     }
 
-    deleteBookService(bookId : string):string{
+    deleteBookService(bookId : number):string{
         this.books = this.books.filter((bk)=>
            {  bk.id !== bookId; 
             
@@ -29,7 +29,7 @@ export class BookService{
         return "Book has been deleted successfuly."
       }
 
-      findBookbyIdService(bookId : string):Book{
+      findBookbyIdService(bookId : number):Book{
         const foundBook = this.books.find((bk) => bk.id === bookId);
         return foundBook;
       }
