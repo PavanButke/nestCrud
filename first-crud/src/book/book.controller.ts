@@ -39,7 +39,7 @@ export class BookController{
     }
 
     @Post('/add')
-    @UseGuards(new BookGuard())
+    //@UseGuards(new BookGuard())
     addNewBook(@Body(new ValidationPipe()) book : Book):string{
         return this.bookServ.addBookService(book);
     }
