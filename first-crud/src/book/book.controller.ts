@@ -1,7 +1,8 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, ValidationPipe } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseFilters, ValidationPipe } from "@nestjs/common";
 import { BookService } from "./book.service";
 import { Book } from "./data/book.dto";
 import { BookException } from "./book.exception";
+import { BookCustomExceptionFilter } from "./book.exception.filter";
 
 
 @Controller('/book')
@@ -24,9 +25,16 @@ export class BookController{
         return this.bookServ.deleteBookService(bookId);
     }
     @Get('/findBookbyId/:id')
+    @UseFilters(BookCustomExceptionFilter)
     getBookbyId(@Param("id" , ParseIntPipe) bookId: number): Book{
-        throw new BookException();
-        return this.bookServ.findBookbyIdService(bookId);
+        
+        try{
+            return this.bookServ.findBookbyIdService(bookId);
+        }
+        catch( BadRequestException)
+        {
+            throw new BadRequestException();
+        }
     }
 
     @Post('/add')
