@@ -1,6 +1,7 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, ValidationPipe } from "@nestjs/common";
 import { BookService } from "./book.service";
 import { Book } from "./data/book.dto";
+import { BookException } from "./book.exception";
 
 
 @Controller('/book')
@@ -24,10 +25,7 @@ export class BookController{
     }
     @Get('/findBookbyId/:id')
     getBookbyId(@Param("id" , ParseIntPipe) bookId: number): Book{
-        throw new BadRequestException({
-            status: 405,
-            eror: "This is a Custom Exception."
-        });
+        throw new BookException();
         return this.bookServ.findBookbyIdService(bookId);
     }
 
