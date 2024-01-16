@@ -1,11 +1,12 @@
-import { Controller, Get, UseGuards } from "@nestjs/common";
+import { Controller, Get, Request, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
+import { User } from 'src/book/data/user.dto';
 
 @Controller('/app')
 export class AppController{
     @Get('/auth')
     @UseGuards(AuthGuard('local'))
-    getUserbyName(): string{
-        return "Checking Authentication";
+    getUserbyName(@Request() req): User{
+        return  req.User;
     }
 }
