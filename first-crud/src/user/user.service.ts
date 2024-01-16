@@ -38,4 +38,10 @@ export class UserService{
       findAllUsers(): User[]{
         return this.users;
       } 
+
+      findUserbyNameService(username : string):User{
+        const foundUser = this.users.find((bk) => bk.username === username);
+        return foundUser;
+      }
+
 }

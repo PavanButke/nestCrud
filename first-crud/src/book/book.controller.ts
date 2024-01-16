@@ -45,4 +45,11 @@ export class BookController{
     addNewBook(@Body(new ValidationPipe()) book : Book):string{
         return this.bookServ.addBookService(book);
     }
+
+    @Post('/check')
+    //@UseGuards(new BookGuard())
+    @UseInterceptors(BookInterceptor)
+    checkBook():string{
+        return "Mic check 123 123";
+    }
 }
