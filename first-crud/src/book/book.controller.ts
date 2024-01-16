@@ -1,9 +1,10 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseFilters, UseGuards, ValidationPipe } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseFilters, UseGuards, UseInterceptors, ValidationPipe } from "@nestjs/common";
 import { BookService } from "./book.service";
 import { Book } from "./data/book.dto";
 import { BookException } from "./book.exception";
 import { BookCustomExceptionFilter } from "./book.exception.filter";
 import { BookGuard } from "./data/book.guard";
+import { BookInterceptor } from "./book.interceptor";
 
 
 @Controller('/book')
@@ -40,6 +41,7 @@ export class BookController{
 
     @Post('/add')
     //@UseGuards(new BookGuard())
+    @UseInterceptors(BookInterceptor)
     addNewBook(@Body(new ValidationPipe()) book : Book):string{
         return this.bookServ.addBookService(book);
     }
