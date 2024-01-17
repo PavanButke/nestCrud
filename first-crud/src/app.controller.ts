@@ -1,12 +1,25 @@
-import { Controller, Get, Request, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { User } from 'src/book/data/user.dto';
+import { AuthService } from "./auth/auth.service";
 
 @Controller('/app')
 export class AppController{
+    constructor(private readonly authService: AuthService){
+
+    }
+
     @Get('/auth')
     @UseGuards(AuthGuard('local'))
-    getUserbyName(@Request() req): User{
-        return  req.User;
+    getUserbyName(@Request() req): string{
+
+        return  this.authService.generateToken(req.user);
+    }
+
+    @Get('/auth/authorize')
+    @UseGuards(AuthGuard('jwt'))
+    getAuthbyName(): string{
+
+        return  "You are authorized to access!";
     }
 }
