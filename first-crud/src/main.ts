@@ -18,9 +18,12 @@ function globalMiddleWareTwo(req: Request , res: Response , next: NextFunction)
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(globalMiddleWareOne);
-  app.use(globalMiddleWareTwo);
-  app.useGlobalGuards(new BookGuard());
+  // app.use(globalMiddleWareOne);
+  // app.use(globalMiddleWareTwo);
+
+    console.log(process.env.port);
+    console.log(process.env.logging);
+   //app.useGlobalGuards(new BookGuard());
   await app.listen(5000);
 }
 bootstrap();
