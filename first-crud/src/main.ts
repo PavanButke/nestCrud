@@ -15,7 +15,7 @@ function globalMiddleWareTwo(req: Request , res: Response , next: NextFunction)
     console.log("This global middleware 2.");
     next()
 }
-
+declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.use(globalMiddleWareOne);
@@ -25,5 +25,11 @@ async function bootstrap() {
     console.log(process.env.logging);
    //app.useGlobalGuards(new BookGuard());
   await app.listen(5000);
+
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();
