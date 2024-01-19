@@ -6,9 +6,11 @@ import { AppController } from './app.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MyUserModule } from './my-user/my-user.module';
+import { join } from 'path';
 
 @Module({
-  imports: [BookModule , UserModule , AuthModule, DatabaseModule,
+  imports: [BookModule ,MyUserModule, UserModule , AuthModule, DatabaseModule,
     TypeOrmModule.forRootAsync(
       {
         imports : [ConfigModule.forRoot({
@@ -24,10 +26,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configServ.get('DB_USERNAME'),
         password: configServ.get('DB_PASSWORD'),
         database: configServ.get('DB_DATABASE'),
-        synchronize: configServ.get('DB_SYNC') 
+        entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+        synchronize: configServ.get('DB_SYNC'),
+        
       }),
       inject: [ConfigService]
-  })
+  }),
+    MyUserModule
   ],
   controllers: [AppController],
   providers: [],
