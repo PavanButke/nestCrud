@@ -4,10 +4,14 @@ import { UpdateMyUserDto } from './dto/update-my-user.dto';
 import { FindOneOptions, Repository } from 'typeorm';
 import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
 import { MyUser } from './entities/my-user.entity';
+import { MyUserRepository } from './repository/my-user.repository';
 
 @Injectable()
 export class MyUserService {
-  constructor(@InjectRepository(MyUser) private readonly userRepository : Repository<MyUser>){
+  constructor(
+    //@InjectRepository(MyUser) private readonly userRepository : Repository<MyUser>,
+      private readonly userRepository :MyUserRepository
+  ){
 
   }
 
@@ -28,6 +32,10 @@ export class MyUserService {
     return this.userRepository.findOne({ where: { id } });
   }
   
+  findByAge(age: number): Promise<MyUser> {
+    return this.userRepository.getUserByAge(age);
+  }
+
   async update(id: number, updateMyUserDto: UpdateMyUserDto) {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
