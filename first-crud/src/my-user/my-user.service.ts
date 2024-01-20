@@ -9,8 +9,8 @@ import { MyUserRepository } from './repository/my-user.repository';
 @Injectable()
 export class MyUserService {
   constructor(
-    //@InjectRepository(MyUser) private readonly userRepository : Repository<MyUser>,
-      private readonly userRepository :MyUserRepository
+    @InjectRepository(MyUser) private readonly userRepository : Repository<MyUser>,
+     // private readonly userRepository :MyUserRepository
   ){
 
   }
@@ -32,14 +32,14 @@ export class MyUserService {
     return this.userRepository.findOne({ where: { id } });
   }
   
-  findByAge(age: number): Promise<MyUser> {
-    return this.userRepository.getUserByAge(age);
-  }
+  // findByAge(age: number): Promise<MyUser> {
+  //   return this.userRepository.getUserByAge(age);
+  // }
 
   async update(id: number, updateMyUserDto: UpdateMyUserDto) {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
-      // Handle the case where the user with the given id is not found
+   
       throw new NotFoundException(`User with ID ${id} not found`);
     }
 

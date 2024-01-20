@@ -15,7 +15,7 @@ import { join } from 'path';
       {
         imports : [ConfigModule.forRoot({
           isGlobal: true,
-          envFilePath: ".local.env"
+          envFilePath: ".prod.env"
         })],
 
     

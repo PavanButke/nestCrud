@@ -24,7 +24,7 @@ async function bootstrap() {
     console.log(process.env.port);
     console.log(process.env.logging);
    //app.useGlobalGuards(new BookGuard());
-  await app.listen(5000);
+  await app.listen(80);
 
 
   if (module.hot) {

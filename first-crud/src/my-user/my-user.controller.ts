@@ -22,10 +22,10 @@ export class MyUserController {
     return this.myUserService.findOne(+id);
   }
 
-  @Get('/findByUserAge/:age')
-  findByAge(@Param('age') age: number) {
-    return this.myUserService.findByAge(Number(age));
-  }
+  // @Get('/findByUserAge/:age')
+  // findByAge(@Param('age') age: number) {
+  //   return this.myUserService.findByAge(Number(age));
+  // }
 
   @Patch('updateByUserId/:id')
   update(@Param('id') id: string, @Body() updateMyUserDto: UpdateMyUserDto) {
